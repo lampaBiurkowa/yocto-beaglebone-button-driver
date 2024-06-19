@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: GPL-2.0-only
+/*
+ * Copyright (C) 2012 Texas Instruments Incorporated - https://www.ti.com/
+ */
+/dts-v1/;
+
+#include "am33xx.dtsi"
+#include "am335x-bone-common.dtsi"
+#include "am335x-bonegreen-common.dtsi"
+
+&am33xx_pinmux {
+	custom_button: custom_button {
+		pinctrl-single,pins = <
+			AM33XX_PADCONF(0x838, PIN_INPUT_PULLUP, MUX_MODE7)	/* gpmc_ad14.gpio1_14 */
+		>;
+	};
+};
+
+/ {
+	model = "TI AM335x BeagleBone Green";
+	compatible = "ti,am335x-bone-green", "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
+
+	mybutton {
+        compatible = "packt,gpio-descriptor-sample";
+        pinctrl-names = "default";
+        pinctrl-0 = <&custom_button>;
+		
+		button0 {
+			gpios = <&gpio1 14 GPIO_ACTIVE_LOW>;
+			label = "mybutton";
+		};
+	};
+};
